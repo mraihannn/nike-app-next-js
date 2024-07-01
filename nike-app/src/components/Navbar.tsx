@@ -16,7 +16,7 @@ export default function Navbar() {
           />
         </div>
       </Link>
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <Search strokeWidth={1} />
         <Link href="/products">
           <ShoppingBasket strokeWidth={1} />

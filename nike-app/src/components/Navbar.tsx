@@ -1,8 +1,11 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { Heart, Search, ShoppingBasket, User } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const router = usePathname();
   return (
     <div className="flex items-center justify-between bg-white p-5">
       <Link href="/">
@@ -17,7 +20,8 @@ export default function Navbar() {
         </div>
       </Link>
       <div className="flex gap-3">
-        <Search strokeWidth={1} />
+        {router !== "/wishlist" && <Search strokeWidth={1} />}
+
         <Link href="/products">
           <ShoppingBasket strokeWidth={1} />
         </Link>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Heart, Search, ShoppingBasket, User } from "lucide-react";
 
 export default function Navbar() {
   return (
@@ -16,16 +17,20 @@ export default function Navbar() {
         </div>
       </Link>
       <div className="flex gap-2">
+        <Search strokeWidth={1} />
         <Link href="/products">
-          <h1>Product</h1>
+          <ShoppingBasket strokeWidth={1} />
         </Link>
         <Link href="/wishlist">
-          <h1>Wishlist</h1>
+          <Heart strokeWidth={1} />
+        </Link>
+        <Link href="/login">
+          <User strokeWidth={1} />
         </Link>
       </div>
-      <Link href="/login">
+      {/* <Link href="/login">
         <h1>Sign In</h1>
-      </Link>
+      </Link> */}
     </div>
   );
 }

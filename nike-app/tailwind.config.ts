@@ -16,6 +16,7 @@ const config: Config = {
       colors: {
         black_nike: "#111111",
         gray_nike: "#F5F5F5",
+        brown_nike: "#9E3500",
       },
     },
   },

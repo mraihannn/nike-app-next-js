@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-export default function ProductCard() {
+export default function ProductCard({ width }: Readonly<{ width: string }>) {
   return (
-    <div className="w-[49%]">
+    <div className={width}>
       <Image
         src={
           "https://static.nike.com/a/images/f_auto,cs_srgb/w_1536,c_limit/d6c65e9a-a44e-4ea5-aa3f-96480653e803/nike-just-do-it.jpg"

@@ -27,9 +27,7 @@ export default function Products() {
         </div>
       </div>
       <div className="flex flex-wrap justify-between gap-2">
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        <ProductCard width="w-[49%]" />
       </div>
     </div>
   );

@@ -1,7 +1,21 @@
+"use client";
+
 import ProductCard from "@/components/ProductCard";
 import { SlidersHorizontal } from "lucide-react";
+import { useEffect, useState } from "react";
+import fetchProducts from "./action";
 
 export default function Products() {
+  const [products, setProducts] = useState();
+  useEffect(() => {
+    (async () => {
+      const data = await fetchProducts();
+      setProducts(data);
+    })();
+  }, []);
+
+  console.log(products);
+
   return (
     <div>
       <h1 className="px-5 text-xl font-medium">Products Page</h1>

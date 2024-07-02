@@ -1,7 +1,6 @@
 import { database } from "../config/mongodb";
 import { hashPassword } from "@/helpers/bcrypt";
 import { TUser } from "../validation/user";
-import { ObjectId } from "mongodb";
 
 export class User {
   static async create(user: TUser) {

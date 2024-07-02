@@ -5,14 +5,29 @@ import { SlidersHorizontal } from "lucide-react";
 import { useEffect, useState } from "react";
 import fetchProducts from "./action";
 
+type ProductType = {
+  name: string;
+  slug: string;
+  description: string;
+  excerpt: string;
+  price: number;
+  tags: string[];
+  thumbnail: string;
+  images: string[];
+  createdAt: string;
+  updatedAt: string;
+};
+
 export default function Products() {
-  const [products, setProducts] = useState();
+  const [products, setProducts] = useState<ProductType[]>();
   useEffect(() => {
     (async () => {
       const data = await fetchProducts();
       setProducts(data);
     })();
   }, []);
+
+  // const products = await fetchProducts();
 
   console.log(products);
 
@@ -41,7 +56,9 @@ export default function Products() {
         </div>
       </div>
       <div className="flex flex-wrap justify-between gap-2">
-        <ProductCard width="w-[49%]" />
+        {products?.map((p) => (
+          <ProductCard width="w-[49%]" />
+        ))}
       </div>
     </div>
   );

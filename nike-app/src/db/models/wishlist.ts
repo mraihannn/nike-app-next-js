@@ -9,7 +9,7 @@ type WistListType = {
 };
 
 export class Product {
-  static async findAll(): Promise<WistListType[]> {
+  static async findAll() {
     const collection = database.collection("Users");
     const products = await collection.find().toArray();
     return products;

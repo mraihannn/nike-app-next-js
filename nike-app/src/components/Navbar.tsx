@@ -14,7 +14,6 @@ export default function Navbar() {
     cookies().delete("autorization");
     redirect("/login");
   }
-  console.log(cookie);
   return (
     <div className="flex items-center justify-between bg-white p-5">
       <Link href="/">

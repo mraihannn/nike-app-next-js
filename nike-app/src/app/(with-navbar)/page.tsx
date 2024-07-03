@@ -1,7 +1,13 @@
 import ProductCard from "@/components/ProductCard";
+import { ProductType } from "@/db/models/product";
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+  const response = await fetch("http://localhost:3000/api/product", {
+    cache: "no-cache",
+  });
+  const data: ProductType[] = await response.json();
+  console.log(data);
   return (
     <div>
       <div className="bg-gray_nike  py-3 text-center">
@@ -28,8 +34,10 @@ export default function Home() {
           Shop
         </button>
         <h2 className="text-2xl font-medium">Featured</h2>
-        <div className="flex">
-          <ProductCard width="w-[200px]" />
+        <div className="flex flex-wrap">
+          {data?.slice(0, 4).map((p) => (
+            <ProductCard width="500px" data={p} />
+          ))}
         </div>
       </div>
     </div>

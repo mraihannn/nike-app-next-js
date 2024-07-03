@@ -1,6 +1,6 @@
 import { database } from "../config/mongodb";
 
-type ProductType = {
+export type ProductType = {
   name: string;
   slug: string;
   description: string;
@@ -15,8 +15,14 @@ type ProductType = {
 
 export class Product {
   static async findAll(): Promise<ProductType[]> {
-    const collection = database.collection("Users");
+    const collection = database.collection("Products");
     const products = await collection.find().toArray();
     return products;
+  }
+
+  static async create(products: ProductType[]) {
+    const collection = database.collection("Products");
+    await collection.insertMany(products);
+    // return products;
   }
 }

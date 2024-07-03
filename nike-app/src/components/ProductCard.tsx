@@ -4,9 +4,9 @@ import Image from "next/image";
 export default function ProductCard({
   width,
   data,
-}: Readonly<{ width: string; data: ProductType }>) {
+}: Readonly<{ width?: string; data: ProductType }>) {
   return (
-    <div style={{ width: width }}>
+    <div>
       <Image
         src={data.thumbnail}
         alt="cover"
@@ -19,7 +19,7 @@ export default function ProductCard({
         <h3 className="text-gray-500 font-semibold">{data.excerpt}</h3>
         {/* <h3 className="text-gray-500 font-semibold">1 Colour</h3> */}
         <p className="mt-2 font-semibold">
-          {data.price.toLocaleString("id-ID", {
+          {data.price?.toLocaleString("id-ID", {
             style: "currency",
             currency: "IDR",
             minimumFractionDigits: 0,

@@ -3,7 +3,6 @@
 import ProductCard from "@/components/ProductCard";
 import { SlidersHorizontal } from "lucide-react";
 import { useEffect, useState } from "react";
-import fetchProducts from "./action";
 
 type ProductType = {
   name: string;
@@ -22,7 +21,10 @@ export default function Products() {
   const [products, setProducts] = useState<ProductType[]>();
   useEffect(() => {
     (async () => {
-      const data = await fetchProducts();
+      const response = await fetch("http://localhost:3000/api/product", {
+        cache: "no-cache",
+      });
+      const data = await response.json();
       setProducts(data);
     })();
   }, []);
@@ -55,9 +57,9 @@ export default function Products() {
           <SlidersHorizontal size={20} />
         </div>
       </div>
-      <div className="flex flex-wrap justify-between gap-2">
+      <div className="grid grid-cols-2 gap-2">
         {products?.map((p) => (
-          <ProductCard width="w-[49%]" />
+          <ProductCard data={p} />
         ))}
       </div>
     </div>

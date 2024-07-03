@@ -1,33 +1,41 @@
 "use server";
 
-import { User } from "@/db/models/user";
 import { schemaUser } from "@/db/validation/user";
-import { MongoServerError } from "mongodb";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
 export default async function submit(formData: FormData) {
-  const rawFormData = {
-    email: formData.get("email"),
-    password: formData.get("password"),
-  };
-
   try {
-    const validateBody = await schemaUser.parseAsync(rawFormData);
-    const user = await User.findByEmail(validateBody.email);
-    if (!user) {
-      throw new Error("Account not found");
+    const validateBody = await schemaUser.parseAsync({
+      email: formData.get("email"),
+      password: formData.get("password"),
+    });
+    const response = await fetch("http://localhost:3000/api/login", {
+      method: "POST",
+      body: JSON.stringify(validateBody),
+    });
+    const { access_token } = await response.json();
+
+    if (!access_token) {
+      throw new Error("Invalid email/password");
     }
-    console.log(user);
-  } catch (error: any) {
+
+    cookies().set("authorization", `Bearer ${access_token}`);
+    throw redirect("/");
+  } catch (error) {
     console.log(error);
     if (error instanceof z.ZodError) {
-      redirect(`/login?error=${error.errors[0].message}`);
-    } else if (error instanceof MongoServerError) {
-      if (error.code === 11000)
-        redirect(`/login?error=${encodeURIComponent("Email already exist")}`);
+      throw redirect(`/login?error=${error.errors[0].message}`);
+    } else if ((error as Error).message === "Invalid email/password") {
+      throw redirect(
+        `/login?error=${encodeURIComponent("Invalid email/password")}`
+      );
     }
-    redirect(`/register`);
+    throw error;
+    // throw redirect(
+    //   `/login?error=${encodeURIComponent((error as Error).message)}`
+    // );
   }
-  redirect("/");
+  // redirect(`/register`);
 }

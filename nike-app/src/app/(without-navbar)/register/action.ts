@@ -15,8 +15,14 @@ export default async function register(formData: FormData) {
 
   try {
     const validateBody = await schemaUser.parseAsync(rawFormData);
-    console.log(validateBody);
-    await User.create(validateBody);
+    const response = await fetch("http://localhost:3000/api/register", {
+      method: "POST",
+      body: JSON.stringify(validateBody),
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+    });
+    const { id } = await response.json();
   } catch (error) {
     if (error instanceof z.ZodError) {
       redirect(`/register?error=${error.errors[0].message}`);

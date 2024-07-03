@@ -1,5 +1,6 @@
 import Image from "next/image";
 import submit from "./action";
+import Link from "next/link";
 
 export default function LoginPage({
   searchParams,
@@ -47,6 +48,10 @@ export default function LoginPage({
           name="password"
           className="border-[1px] border-black px-2 py-3 w-full rounded-lg"
         />
+
+        <Link className="text-gray-600" href="/register">
+          Dont have account? Register here
+        </Link>
 
         <div className="text-end">
           <button

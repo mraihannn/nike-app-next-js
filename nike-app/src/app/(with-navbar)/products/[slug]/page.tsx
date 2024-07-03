@@ -8,23 +8,23 @@ type Props = {
 };
 
 export async function generateMetadata(
-  { params, searchParams }: Props,
+  { params, searchParams }: Props, // parent itu turunan dari metadata di root layout
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
   const slug = params.slug;
 
   // fetch data
-  const product = await fetch(`https://.../${slug}`).then((res) => res.json());
-
+  // const product = await fetch(`https://.../${slug}`).then((res) => res.json());
+  //
   // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent).openGraph?.images || [];
+  // const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: product.title,
-    openGraph: {
-      images: ["/some-specific-page-image.jpg", ...previousImages],
-    },
+    title: "product.title",
+    // openGraph: {
+    //   images: ["/some-specific-page-image.jpg", ...previousImages],
+    // },
   };
 }
 

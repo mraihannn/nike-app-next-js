@@ -22,9 +22,14 @@ export default function WishlistPage() {
         <input type="text" className="bg-transparent flex-1 outline-none" />
       </div>
       <h1 className="p-5 text-xl font-medium">Wishlist</h1>
-      <div className="grid grid-cols-2 md:grid-cols-3">
+      <div className="grid gap-2 grid-cols-2 md:grid-cols-3">
         {wishlist?.map((w) => (
-          <ProductCard buttonWishlist={false} key={w._id} data={w.product} />
+          <ProductCard
+            buttonWishlist={false}
+            buttonRemoveWishlist={true}
+            key={w._id}
+            dataWishlist={w}
+          />
         ))}
       </div>
     </div>

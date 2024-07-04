@@ -46,6 +46,15 @@ export class Wishlist {
     return products;
   }
 
+  static async findByUserIdProductId(productId: string, userId: string) {
+    const collection = database.collection("Wishlist");
+    const products = await collection.findOne({
+      productId: new ObjectId(productId),
+      userId: new ObjectId(userId),
+    });
+    return products;
+  }
+
   static async create(newWishlist: WistListType) {
     const { userId, productId } = newWishlist;
     const collection = database.collection("Wishlist");

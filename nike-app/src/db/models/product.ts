@@ -2,6 +2,7 @@ import { ObjectId } from "mongodb";
 import { database } from "../config/mongodb";
 
 export type ProductType = {
+  _id?: string;
   name: string;
   slug: string;
   description: string;

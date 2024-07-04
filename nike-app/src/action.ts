@@ -15,3 +15,10 @@ export const addWishlist = async (productId: string, userId: string) => {
     method: "POST",
   });
 };
+
+export const removeWishlist = async (wistListId: string | undefined) => {
+  await fetch("http://localhost:3000/api/wishlist", {
+    body: JSON.stringify({ wistListId }),
+    method: "DELETE",
+  });
+};

@@ -54,14 +54,17 @@ export async function POST(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-  const { id } = await request.json();
+  const { wistListId } = await request.json();
   try {
-    if (!id) {
-      return NextResponse.json({ message: "id is required" }, { status: 400 });
+    if (!wistListId) {
+      return NextResponse.json(
+        { message: "wistListId is required" },
+        { status: 400 }
+      );
     }
 
-    const wishlist = await Wishlist.findById(id);
-    console.log(wishlist);
+    const wishlist = await Wishlist.findById(wistListId);
+
     if (!wishlist) {
       return NextResponse.json(
         { message: "Wishlist not found" },
@@ -69,9 +72,9 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    await Wishlist.delete(id);
+    await Wishlist.delete(wistListId);
     return NextResponse.json(
-      { message: `Wishlist with id ${id} has been deleted` },
+      { message: `Wishlist with id ${wistListId} has been deleted` },
       { status: 202 }
     );
   } catch (error) {

@@ -1,3 +1,4 @@
+import ButtonWishlist from "@/components/ButtonWishlist";
 import { ProductType } from "@/db/models/product";
 import { Heart } from "lucide-react";
 import type { Metadata, ResolvingMetadata } from "next";
@@ -78,9 +79,7 @@ export default async function DetailProduct({
           </div>
         </div>
         <div>
-          <button className="flex mt-2 justify-center items-center gap-3 bg-black_nike w-full text-white p-3 px-6 rounded-full">
-            Favourite <Heart size={18} />
-          </button>
+          <ButtonWishlist />
         </div>
         <p>{product.description}</p>
       </div>

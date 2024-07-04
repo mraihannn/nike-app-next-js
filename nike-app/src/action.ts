@@ -8,3 +8,10 @@ export const logout = () => {
   cookie.delete("authorization");
   redirect("/login");
 };
+
+export const addWishlist = async (productId: string, userId: string) => {
+  await fetch("http://localhost:3000/api/wishlist", {
+    body: JSON.stringify({ productId, userId }),
+    method: "POST",
+  });
+};

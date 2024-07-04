@@ -4,9 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   // const slug = request.nextUrl.pathname.split("/").pop();
-  const body = request.json();
+  // const { userId } = await request.json();
+  const userId = "6686c2e2613b496f2cff3868";
   try {
-    const wishlist = await Wishlist.findAll();
+    const wishlist = await Wishlist.findAllByUserId(userId);
     return NextResponse.json(wishlist);
   } catch (error) {
     console.log(error);

@@ -1,18 +1,42 @@
 import { ObjectId } from "mongodb";
 import { database } from "../config/mongodb";
+import { ProductType } from "./product";
 
-type WistListType = {
-  // _id?: string;
+export type WistListType = {
+  _id?: string;
   userId: string;
   productId: string;
+  product: ProductType;
   // createdAt: string;
   // updatedAt: string;
 };
 
 export class Wishlist {
-  static async findAll() {
+  static async findAllByUserId(userId: string) {
     const collection = database.collection("Wishlist");
-    const products = await collection.find().toArray();
+    const products = await collection
+      .aggregate([
+        {
+          $match: {
+            userId: new ObjectId(userId),
+          },
+        },
+        {
+          $lookup: {
+            from: "Products",
+            localField: "productId",
+            foreignField: "_id",
+            as: "product",
+          },
+        },
+        {
+          $unwind: {
+            path: "$product",
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+      ])
+      .toArray();
     return products;
   }
 
@@ -23,9 +47,11 @@ export class Wishlist {
   }
 
   static async create(newWishlist: WistListType) {
+    const { userId, productId } = newWishlist;
     const collection = database.collection("Wishlist");
     const { insertedId } = await collection.insertOne({
-      ...newWishlist,
+      userId: new ObjectId(userId),
+      productId: new ObjectId(productId),
       createdAt: new Date(),
       updatedAt: new Date(),
     });

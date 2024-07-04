@@ -8,7 +8,6 @@ export default async function Home() {
     cache: "no-cache",
   });
   const data: ProductType[] = await response.json();
-  console.log(data);
   return (
     <div>
       <div className="bg-gray_nike  py-3 text-center">

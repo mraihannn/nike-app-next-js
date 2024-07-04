@@ -3,11 +3,13 @@
 import { ProductType } from "@/db/models/product";
 import Image from "next/image";
 import Link from "next/link";
+import ButtonWishlist from "./ButtonWishlist";
 
 export default function ProductCard({
   width,
   data,
-}: Readonly<{ width?: string; data: ProductType }>) {
+  buttonWishlist,
+}: Readonly<{ width?: string; data: ProductType; buttonWishlist: boolean }>) {
   return (
     <div>
       <Link href={`/products/${data.slug}`}>
@@ -34,9 +36,7 @@ export default function ProductCard({
           </p>
         </div>
 
-        <button className="mt-3 bg-black px-4 py-2 rounded-full text-white">
-          Add to wishlist
-        </button>
+        {buttonWishlist && <ButtonWishlist />}
       </div>
     </div>
   );

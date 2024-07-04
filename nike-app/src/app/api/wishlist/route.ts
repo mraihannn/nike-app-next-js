@@ -51,3 +51,38 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  const { id } = await request.json();
+  try {
+    if (!id) {
+      return NextResponse.json({ message: "id is required" }, { status: 400 });
+    }
+
+    const wishlist = await Wishlist.findById(id);
+    console.log(wishlist);
+    if (!wishlist) {
+      return NextResponse.json(
+        { message: "Wishlist not found" },
+        { status: 400 }
+      );
+    }
+
+    await Wishlist.delete(id);
+    return NextResponse.json(
+      { message: `Wishlist with id ${id} has been deleted` },
+      { status: 202 }
+    );
+  } catch (error) {
+    console.log(error);
+    if ((error as Error).name === "BSONError") {
+      return NextResponse.json({ message: "Invalid id" }, { status: 400 });
+    }
+    return NextResponse.json(
+      { message: "Internal server error" },
+      {
+        status: 500,
+      }
+    );
+  }
+}

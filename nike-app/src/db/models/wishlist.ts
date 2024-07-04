@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { database } from "../config/mongodb";
 
 type WistListType = {
@@ -15,6 +16,12 @@ export class Wishlist {
     return products;
   }
 
+  static async findById(id: string) {
+    const collection = database.collection("Wishlist");
+    const products = await collection.findOne({ _id: new ObjectId(id) });
+    return products;
+  }
+
   static async create(newWishlist: WistListType) {
     const collection = database.collection("Wishlist");
     const { insertedId } = await collection.insertOne({
@@ -23,5 +30,12 @@ export class Wishlist {
       updatedAt: new Date(),
     });
     return insertedId;
+  }
+
+  static async delete(id: string) {
+    const collection = database.collection("Wishlist");
+    await collection.deleteOne({
+      _id: new ObjectId(id),
+    });
   }
 }

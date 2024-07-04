@@ -1,6 +1,7 @@
 import ProductCard from "@/components/ProductCard";
 import { ProductType } from "@/db/models/product";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Home() {
   const response = await fetch("http://localhost:3000/api/product", {
@@ -33,8 +34,13 @@ export default async function Home() {
         <button className="my-5 py-2 px-4 text-white bg-black rounded-full">
           Shop
         </button>
-        <h2 className="text-2xl font-medium">Featured</h2>
-        <div className="flex flex-wrap">
+        <div className="flex justify-between">
+          <h2 className="text-2xl font-medium">Featured</h2>
+          <Link href="/products" className="text-2xl font-medium">
+            See all
+          </Link>
+        </div>
+        <div className="flex ">
           {data?.slice(0, 4).map((p) => (
             <ProductCard width="500px" data={p} />
           ))}

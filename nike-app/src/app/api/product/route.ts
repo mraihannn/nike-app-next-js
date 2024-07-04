@@ -1,7 +1,7 @@
 import { Product } from "@/db/models/product";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(requst: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
     const product = await Product.findAll();
     return NextResponse.json(product);
@@ -15,7 +15,7 @@ export async function GET(requst: NextRequest) {
   }
 }
 
-export async function POST(requst: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     const products = require("../../../../../db.json");
     // console.log(products.products);

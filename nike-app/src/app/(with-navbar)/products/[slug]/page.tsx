@@ -1,3 +1,4 @@
+import { ProductType } from "@/db/models/product";
 import { Heart } from "lucide-react";
 import type { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
@@ -28,24 +29,31 @@ export async function generateMetadata(
   };
 }
 
-export default function DetailProduct({
+export default async function DetailProduct({
   params,
 }: {
   readonly params: { slug: string };
 }) {
+  const response = await fetch(
+    `http:///localhost:3000/api/product/${params.slug}`
+  );
+  const product: ProductType = await response.json();
+
   return (
     <div>
       <div className="px-5">
-        <h1 className="text-2xl text-black_nike font-medium">
-          Nike Court Vision Low
-        </h1>
-        <h3 className="text-black_nike font-semibold">Mens Shoes</h3>
-        <h3 className="my-5 font-semibold">Rp 1.069.000</h3>
+        <h1 className="text-2xl text-black_nike font-medium">{product.name}</h1>
+        <h3 className="text-black_nike font-semibold">{product.excerpt}</h3>
+        <h3 className="my-5 font-semibold">
+          {product.price?.toLocaleString("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+          })}
+        </h3>
       </div>
       <Image
-        src={
-          "https://static.nike.com/a/images/f_auto,cs_srgb/w_1536,c_limit/d6c65e9a-a44e-4ea5-aa3f-96480653e803/nike-just-do-it.jpg"
-        }
+        src={product.thumbnail}
         alt="cover"
         width={1000}
         height={1000}
@@ -72,6 +80,7 @@ export default function DetailProduct({
             Favourite <Heart size={18} />
           </button>
         </div>
+        <p>{product.description}</p>
       </div>
     </div>
   );

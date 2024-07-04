@@ -14,6 +14,8 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   // read route params
   const slug = params.slug;
+  const response = await fetch(`http:///localhost:3000/api/product/${slug}`);
+  const product: ProductType = await response.json();
 
   // fetch data
   // const product = await fetch(`https://.../${slug}`).then((res) => res.json());
@@ -22,7 +24,7 @@ export async function generateMetadata(
   // const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: "product.title",
+    title: product.name,
     // openGraph: {
     //   images: ["/some-specific-page-image.jpg", ...previousImages],
     // },

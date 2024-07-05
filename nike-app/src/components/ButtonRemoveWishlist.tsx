@@ -1,23 +1,23 @@
 "use client";
-import { removeWishlist } from "@/action";
+import { getWishlist, removeWishlist } from "@/action";
 import { WistListType } from "@/db/models/wishlist";
 import { useRouter } from "next/navigation";
+import { Dispatch, SetStateAction } from "react";
 
 export default function ButtonRemoveWishlist({
   wistListId,
   setWishlist,
 }: {
   readonly wistListId: string | undefined;
-  setWishlist: any;
+  setWishlist: Dispatch<SetStateAction<WistListType[]>>;
 }) {
-  const router = useRouter();
+  // const router = useRouter();
 
   const handleRemove = async () => {
     await removeWishlist(wistListId);
     setWishlist((prevWishlist: WistListType[]) =>
       prevWishlist.filter((item) => item._id!.toString() !== wistListId)
     );
-
     // router.refresh();
   };
 

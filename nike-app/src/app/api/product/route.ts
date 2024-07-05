@@ -4,9 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
   const query = request.nextUrl.searchParams;
   const search = query.get("search");
-  console.log(search);
+  const page = query.get("page");
+  console.log(search, page);
   try {
-    const product = await Product.findAll(search);
+    const product = await Product.findAll(search!, page!);
     return NextResponse.json(product);
   } catch (error) {
     return NextResponse.json(

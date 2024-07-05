@@ -6,6 +6,7 @@ import Link from "next/link";
 import ButtonWishlist from "./ButtonWishlist";
 import ButtonRemoveWishlist from "./ButtonRemoveWishlist";
 import { WistListType } from "@/db/models/wishlist";
+import { Dispatch, SetStateAction } from "react";
 
 export default function ProductCard({
   width,
@@ -15,7 +16,7 @@ export default function ProductCard({
   buttonRemoveWishlist,
   setWishlist,
 }: Readonly<{
-  setWishlist?: any;
+  setWishlist?: Dispatch<SetStateAction<WistListType[]>>;
   width?: string;
   data?: ProductType;
   dataWishlist?: WistListType;
@@ -26,7 +27,7 @@ export default function ProductCard({
     <div>
       <Link href={`/products/${data?.slug || dataWishlist?.product?.slug}`}>
         <Image
-          src={data?.thumbnail || dataWishlist?.product?.thumbnail}
+          src={data?.thumbnail! || dataWishlist?.product?.thumbnail!}
           alt="cover"
           width={1000}
           height={1000}
@@ -58,7 +59,7 @@ export default function ProductCard({
         {buttonWishlist && <ButtonWishlist productId={data?._id!} />}
         {buttonRemoveWishlist && (
           <ButtonRemoveWishlist
-            setWishlist={setWishlist}
+            setWishlist={setWishlist!}
             wistListId={dataWishlist?._id}
           />
         )}

@@ -9,12 +9,12 @@ import { useEffect, useState } from "react";
 export default function WishlistPage() {
   //kalau versi client tidak perlu pasang cookies manual karena auto ngebaca yang di browser
 
-  const [wishlist, setWishlist] = useState<WistListType[]>();
+  const [wishlist, setWishlist] = useState<WistListType[]>([]);
   useEffect(() => {
     (async () => {
-      // const response = await fetch("http://localhost:3000/api/wishlist");
-      // const data = await response.json();
-      const data = await getWishlist();
+      const response = await fetch("http://localhost:3000/api/wishlist");
+      const data = await response.json();
+      // const data = await getWishlist();
       setWishlist(data);
     })();
   }, []);

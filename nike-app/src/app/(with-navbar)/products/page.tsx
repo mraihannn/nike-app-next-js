@@ -3,6 +3,8 @@
 import ProductCard from "@/components/ProductCard";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useDebounce } from "use-debounce";
 
 type ProductType = {
   name: string;
@@ -18,25 +20,36 @@ type ProductType = {
 };
 
 export default function Products() {
-  const [products, setProducts] = useState<ProductType[]>();
+  const [products, setProducts] = useState<ProductType[]>([]);
   const [search, setSearch] = useState<string>();
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+
+  const [value] = useDebounce(search, 1000);
+
+  const fetchData = async (search: string = "") => {
+    try {
+      const res = await fetch(
+        `http://localhost:3000/api/product?search=${search}&page=${page}`
+      );
+      const data = await res.json();
+      setProducts((prevProducts) => [...prevProducts, ...data]);
+      setPage((prevPage) => prevPage + 1);
+      setHasMore(data.length > 0);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    (async () => {
-      const response = await fetch("http://localhost:3000/api/product");
-      const data = await response.json();
-      setProducts(data);
-    })();
+    fetchData();
   }, []);
 
   useEffect(() => {
-    (async () => {
-      const response = await fetch(
-        `http://localhost:3000/api/product?search=${search}`
-      );
-      const data = await response.json();
-      setProducts(data);
-    })();
-  }, [search]);
+    setProducts([]);
+    setPage(1);
+    fetchData(value);
+  }, [value]);
 
   // const products = await fetchProducts();
 
@@ -61,7 +74,7 @@ export default function Products() {
         <h1>Lifestyle</h1>
       </div>
       <div className="flex p-5 justify-between items-center">
-        <h3 className="font-medium text-gray-500">555 Results</h3>
+        <h3 className="font-medium text-gray-500">{products.length} Results</h3>
         <div className="flex gap-2 border-[1px] py-1 px-4 rounded-full items-center">
           <span className="font-medium">Filter</span>
           <SlidersHorizontal size={20} />
@@ -70,22 +83,45 @@ export default function Products() {
       <div className="flex my-5 mx-5 gap-2 border-[1px] p-2 bg-gray_nike rounded-full">
         <Search strokeWidth={1} />
         <input
+          placeholder="cunabula"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           type="text"
           className="bg-transparent flex-1 outline-none"
         />
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-        {products?.map((p) => (
+
+      <InfiniteScroll
+        dataLength={products.length}
+        next={fetchData}
+        hasMore={hasMore}
+        loader={<h4>Loading...</h4>}
+        endMessage={
+          <p style={{ textAlign: "center" }}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
+      >
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          {products?.map((p) => (
+            <ProductCard
+              buttonRemoveWishlist={false}
+              buttonWishlist={true}
+              key={p.slug}
+              data={p}
+            />
+          ))}
+        </div>
+      </InfiniteScroll>
+
+      {/* {products?.map((p) => (
           <ProductCard
             buttonRemoveWishlist={false}
             buttonWishlist={true}
             key={p.slug}
             data={p}
           />
-        ))}
-      </div>
+        ))} */}
     </div>
   );
 }

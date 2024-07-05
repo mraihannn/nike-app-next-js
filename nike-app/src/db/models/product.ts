@@ -16,7 +16,10 @@ export type ProductType = {
 };
 
 export class Product {
-  static async findAll(search?: string): Promise<ProductType[]> {
+  static async findAll(
+    search?: string,
+    page: string = "1"
+  ): Promise<ProductType[]> {
     const collection = database.collection("Products");
     if (search) {
       const products = await collection
@@ -32,7 +35,12 @@ export class Product {
         .toArray();
       return products;
     }
-    const products = await collection.find().toArray();
+
+    const products = await collection
+      .find()
+      .limit(5)
+      .skip(5 * Number(page) - 1)
+      .toArray();
     return products;
   }
 

@@ -41,7 +41,12 @@ export default async function Home() {
         </div>
         <div className="flex ">
           {data?.slice(0, 4).map((p) => (
-            <ProductCard width="500px" data={p} />
+            <ProductCard
+              buttonRemoveWishlist={false}
+              buttonWishlist={false}
+              width="500px"
+              data={p}
+            />
           ))}
         </div>
       </div>

@@ -5,7 +5,8 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
   // const slug = request.nextUrl.pathname.split("/").pop();
   // const { userId } = await request.json();
-  const userId = "6686c2e2613b496f2cff3868";
+  const userId = request.headers.get("_id")!;
+  console.log(userId);
   try {
     const wishlist = await Wishlist.findAllByUserId(userId);
     return NextResponse.json(wishlist);
@@ -27,17 +28,13 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const { userId, productId } = await request.json();
+  console.log("masok");
+  const userId = request.headers.get("_id")!;
+  const { productId } = await request.json();
   try {
     if (!productId) {
       return NextResponse.json(
         { message: "productId is required" },
-        { status: 400 }
-      );
-    }
-    if (!userId) {
-      return NextResponse.json(
-        { message: "userId is required" },
         { status: 400 }
       );
     }

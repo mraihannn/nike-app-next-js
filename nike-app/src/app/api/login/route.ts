@@ -1,6 +1,6 @@
 import { User } from "@/db/models/user";
 import { schemaUser } from "@/db/validation/user";
-import { verifyToken } from "@/helpers/token";
+import { signToken } from "@/helpers/token";
 import { MongoServerError } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const access_token = verifyToken({ id: String(user._id) });
+    const access_token = signToken({ id: String(user._id) });
 
     return NextResponse.json({ access_token });
   } catch (error) {

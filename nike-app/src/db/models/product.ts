@@ -16,8 +16,22 @@ export type ProductType = {
 };
 
 export class Product {
-  static async findAll(): Promise<ProductType[]> {
+  static async findAll(search?: string): Promise<ProductType[]> {
     const collection = database.collection("Products");
+    if (search) {
+      const products = await collection
+        .aggregate([
+          {
+            $match: {
+              name: {
+                $regex: new RegExp(search, "i"),
+              },
+            },
+          },
+        ])
+        .toArray();
+      return products;
+    }
     const products = await collection.find().toArray();
     return products;
   }

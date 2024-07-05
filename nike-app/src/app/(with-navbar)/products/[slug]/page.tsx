@@ -79,7 +79,7 @@ export default async function DetailProduct({
           </div>
         </div>
         <div>
-          <ButtonWishlist />
+          <ButtonWishlist productId={product._id!} />
         </div>
         <p>{product.description}</p>
       </div>

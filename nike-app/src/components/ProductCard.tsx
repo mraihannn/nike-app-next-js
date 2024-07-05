@@ -13,7 +13,9 @@ export default function ProductCard({
   dataWishlist,
   buttonWishlist,
   buttonRemoveWishlist,
+  setWishlist,
 }: Readonly<{
+  setWishlist?: any;
   width?: string;
   data?: ProductType;
   dataWishlist?: WistListType;
@@ -22,9 +24,9 @@ export default function ProductCard({
 }>) {
   return (
     <div>
-      <Link href={`/products/${data?.slug || dataWishlist?.product.slug}`}>
+      <Link href={`/products/${data?.slug || dataWishlist?.product?.slug}`}>
         <Image
-          src={data?.thumbnail || dataWishlist?.product.thumbnail}
+          src={data?.thumbnail || dataWishlist?.product?.thumbnail}
           alt="cover"
           width={1000}
           height={1000}
@@ -35,14 +37,14 @@ export default function ProductCard({
       <div className="p-3 flex flex-col justify-between">
         <div>
           <h3 className="text-black_nike font-semibold">
-            {data?.name || dataWishlist?.product.name}
+            {data?.name || dataWishlist?.product?.name}
           </h3>
           <h3 className="text-gray-500 font-semibold">
-            {data?.excerpt || dataWishlist?.product.excerpt}
+            {data?.excerpt || dataWishlist?.product?.excerpt}
           </h3>
           {/* <h3 className="text-gray-500 font-semibold">1 Colour</h3> */}
           <p className="mt-2 font-semibold">
-            {(data?.price || dataWishlist?.product.price)?.toLocaleString(
+            {(data?.price || dataWishlist?.product?.price)?.toLocaleString(
               "id-ID",
               {
                 style: "currency",
@@ -53,9 +55,12 @@ export default function ProductCard({
           </p>
         </div>
 
-        {buttonWishlist && <ButtonWishlist />}
+        {buttonWishlist && <ButtonWishlist productId={data?._id!} />}
         {buttonRemoveWishlist && (
-          <ButtonRemoveWishlist wistListId={dataWishlist?._id} />
+          <ButtonRemoveWishlist
+            setWishlist={setWishlist}
+            wistListId={dataWishlist?._id}
+          />
         )}
       </div>
     </div>

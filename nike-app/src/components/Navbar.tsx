@@ -29,7 +29,7 @@ export default function Navbar() {
       </Link>
       <div className="flex gap-3">
         {/* {router !== "/wishlist" && <Search strokeWidth={1} />} */}
-        <Search strokeWidth={1} />
+
         <Link href="/products">
           <ShoppingBasket strokeWidth={1} />
         </Link>

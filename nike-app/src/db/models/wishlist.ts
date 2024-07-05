@@ -6,7 +6,7 @@ export type WistListType = {
   _id?: string;
   userId: string;
   productId: string;
-  product: ProductType;
+  product?: ProductType;
   // createdAt: string;
   // updatedAt: string;
 };

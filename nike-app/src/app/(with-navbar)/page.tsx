@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function Home() {
-  const response = await fetch("http://localhost:3000/api/product", {
-    cache: "no-cache",
-  });
+  const response = await fetch(
+    "http://localhost:3000/api/product?search=&page=1"
+  );
   const data: ProductType[] = await response.json();
   return (
     <div>
@@ -40,7 +40,7 @@ export default async function Home() {
           </Link>
         </div>
         <div className="flex ">
-          {data?.slice(0, 4).map((p) => (
+          {data?.slice(0, 5).map((p) => (
             <ProductCard
               buttonRemoveWishlist={false}
               buttonWishlist={false}

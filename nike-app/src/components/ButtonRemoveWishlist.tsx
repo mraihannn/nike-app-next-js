@@ -3,6 +3,7 @@ import { getWishlist, removeWishlist } from "@/action";
 import { WistListType } from "@/db/models/wishlist";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
+import Swal from "sweetalert2";
 
 export default function ButtonRemoveWishlist({
   wistListId,
@@ -18,6 +19,11 @@ export default function ButtonRemoveWishlist({
     setWishlist((prevWishlist: WistListType[]) =>
       prevWishlist.filter((item) => item._id!.toString() !== wistListId)
     );
+    Swal.fire({
+      title: "Removed!",
+      text: "Product removed from Wishlist!",
+      icon: "error",
+    });
     // router.refresh();
   };
 

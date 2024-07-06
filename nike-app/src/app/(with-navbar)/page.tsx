@@ -24,7 +24,7 @@ export default async function Home() {
           style={{ width: "100%" }}
         />
         <h1 className="py-5 uppercase text-4xl font-extrabold">
-          don't waste your energy
+          don&apos;t waste your energy
         </h1>
         <p className="py-5 font-medium">
           Run in Pegasus. Feel the responsive energy return of Air Zoom and
@@ -42,6 +42,7 @@ export default async function Home() {
         <div className="flex ">
           {data?.slice(0, 5).map((p) => (
             <ProductCard
+              key={p._id}
               buttonRemoveWishlist={false}
               buttonWishlist={false}
               width="500px"

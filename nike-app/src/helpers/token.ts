@@ -4,11 +4,11 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const secret = new TextEncoder().encode(JWT_SECRET);
 
 export function signToken(payload: { id: string }) {
-  return sign(payload, secret);
+  return sign(payload, Buffer.from(secret));
 }
 
 export function verifyToken(token: string) {
-  return verify(token, secret);
+  return verify(token, Buffer.from(secret));
 }
 
 export async function verifyTokenJose(token: string) {

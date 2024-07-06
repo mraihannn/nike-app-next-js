@@ -1,7 +1,6 @@
 "use client";
 import { removeWishlist } from "@/action";
 import { WistListType } from "@/db/models/wishlist";
-import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 import Swal from "sweetalert2";
 
@@ -12,8 +11,6 @@ export default function ButtonRemoveWishlist({
   readonly wistListId: string | undefined;
   setWishlist: Dispatch<SetStateAction<WistListType[]>>;
 }) {
-  // const router = useRouter();
-
   const handleRemove = async () => {
     await removeWishlist(wistListId);
     setWishlist((prevWishlist: WistListType[]) =>

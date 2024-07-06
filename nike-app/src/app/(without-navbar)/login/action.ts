@@ -40,5 +40,4 @@ export default async function submit(formData: FormData) {
     //   `/login?error=${encodeURIComponent((error as Error).message)}`
     // );
   }
-  // redirect(`/register`);
 }

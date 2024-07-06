@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import { Document, ObjectId, OptionalId } from "mongodb";
 import { database } from "../config/mongodb";
 
 export type ProductType = {
@@ -16,10 +16,7 @@ export type ProductType = {
 };
 
 export class Product {
-  static async findAll(
-    search?: string,
-    page: string = "1"
-  ): Promise<ProductType[]> {
+  static async findAll(search?: string, page: string = "1") {
     const collection = database.collection("Products");
     if (search) {
       const products = await collection
@@ -44,7 +41,7 @@ export class Product {
     return products;
   }
 
-  static async create(products: ProductType[]) {
+  static async create(products: OptionalId<Document[]>) {
     const collection = database.collection("Products");
     await collection.insertMany(products);
     // return products;

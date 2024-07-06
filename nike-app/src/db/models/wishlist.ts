@@ -7,8 +7,6 @@ export type WistListType = {
   userId: string;
   productId: string;
   product?: ProductType;
-  // createdAt: string;
-  // updatedAt: string;
 };
 
 export class Wishlist {

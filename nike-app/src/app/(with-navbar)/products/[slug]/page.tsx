@@ -15,7 +15,9 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   // read route params
   const slug = params.slug;
-  const response = await fetch(`http:///localhost:3000/api/product/${slug}`);
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_BASE_URL + `api/product/${slug}`
+  );
   const product: ProductType = await response.json();
 
   // fetch data
@@ -38,7 +40,7 @@ export default async function DetailProduct({
   readonly params: { slug: string };
 }) {
   const response = await fetch(
-    `http:///localhost:3000/api/product/${params.slug}`
+    process.env.NEXT_PUBLIC_BASE_URL + `api/product/${params.slug}`
   );
   const product: ProductType = await response.json();
 

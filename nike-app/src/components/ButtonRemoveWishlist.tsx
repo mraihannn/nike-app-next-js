@@ -1,5 +1,5 @@
 "use client";
-import { getWishlist, removeWishlist } from "@/action";
+import { removeWishlist } from "@/action";
 import { WistListType } from "@/db/models/wishlist";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";

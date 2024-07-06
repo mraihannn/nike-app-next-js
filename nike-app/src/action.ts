@@ -14,7 +14,7 @@ export const addWishlist = async (productId: string) => {
   console.log("action add wishlist");
   try {
     console.log("action add wishlist 2");
-    await fetch("http://localhost:3000/api/wishlist", {
+    await fetch(process.env.NEXT_PUBLIC_BASE_URL + "api/wishlist", {
       body: JSON.stringify({ productId }),
       method: "POST",
       headers: {
@@ -28,7 +28,7 @@ export const addWishlist = async (productId: string) => {
 };
 
 export const removeWishlist = async (wistListId: string | undefined) => {
-  await fetch("http://localhost:3000/api/wishlist", {
+  await fetch(process.env.NEXT_PUBLIC_BASE_URL + "api/wishlist", {
     body: JSON.stringify({ wistListId }),
     method: "DELETE",
     headers: {
@@ -43,11 +43,14 @@ export const removeWishlist = async (wistListId: string | undefined) => {
 };
 
 export const getWishlist = async () => {
-  const response = await fetch("http://localhost:3000/api/wishlist", {
-    headers: {
-      "Content-Type": "application/json",
-      Cookie: cookies().toString(), //karena dari server, cookies harus ditulis manual
-    },
-  });
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_BASE_URL + "api/wishlist",
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: cookies().toString(), //karena dari server, cookies harus ditulis manual
+      },
+    }
+  );
   return await response.json();
 };

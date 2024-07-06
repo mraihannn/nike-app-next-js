@@ -11,10 +11,13 @@ export default async function submit(formData: FormData) {
       email: formData.get("email"),
       password: formData.get("password"),
     });
-    const response = await fetch("http://localhost:3000/api/login", {
-      method: "POST",
-      body: JSON.stringify(validateBody),
-    });
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_BASE_URL + "api/login",
+      {
+        method: "POST",
+        body: JSON.stringify(validateBody),
+      }
+    );
     const { access_token } = await response.json();
 
     if (!access_token) {

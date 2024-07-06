@@ -12,7 +12,9 @@ export default function WishlistPage() {
   const [wishlist, setWishlist] = useState<WistListType[]>([]);
   useEffect(() => {
     (async () => {
-      const response = await fetch("http://localhost:3000/api/wishlist");
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_BASE_URL + "api/wishlist"
+      );
       const data = await response.json();
       // const data = await getWishlist();
       setWishlist(data);
@@ -20,7 +22,7 @@ export default function WishlistPage() {
   }, []);
 
   //versi server side
-  // const response = await fetch("http://localhost:3000/api/wishlist",{
+  // const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL+"api/wishlist",{
   //   headers:{
   //     Cookie:cookies().toString()
   //   }

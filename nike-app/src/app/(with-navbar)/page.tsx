@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default async function Home() {
   const response = await fetch(
-    "http://localhost:3000/api/product?search=&page=1"
+    process.env.NEXT_PUBLIC_BASE_URL + "api/product?search=&page=1"
   );
   const data: ProductType[] = await response.json();
   return (

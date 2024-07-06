@@ -30,7 +30,8 @@ export default function Products() {
   const fetchData = async (search: string = "") => {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/product?search=${search}&page=${page}`
+        process.env.NEXT_PUBLIC_BASE_URL +
+          `api/product?search=${search}&page=${page}`
       );
       const data = await res.json();
       setProducts((prevProducts) => [...prevProducts, ...data]);

@@ -60,7 +60,7 @@ export default function Products() {
     <div>
       <h1 className="px-5 text-xl font-medium">Products Page</h1>
 
-      <div className="flex p-5 gap-5 border-b-2 overflow-x-auto no-scrollbar">
+      <div className="flex md:hidden p-5 gap-5 border-b-2 overflow-x-auto no-scrollbar">
         <h1 className="font-medium">Lifestyle</h1>
         <h1>Lifestyle</h1>
         <h1>Lifestyle</h1>
@@ -74,6 +74,7 @@ export default function Products() {
         <h1>Lifestyle</h1>
         <h1>Lifestyle</h1>
       </div>
+
       <div className="flex p-5 justify-between items-center">
         <h3 className="font-medium text-gray-500">{products.length} Results</h3>
         <div className="flex gap-2 border-[1px] py-1 px-4 rounded-full items-center">

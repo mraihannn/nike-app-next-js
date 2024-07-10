@@ -30,9 +30,7 @@ export default function LoginPage({
         </div>
       </div>
 
-      <h1 className="text-3xl py-5">
-        Masukkan email Anda untuk mendaftar atau masuk.
-      </h1>
+      <h1 className="text-3xl py-5">Masukkan email Anda untuk masuk.</h1>
 
       <form action={submit} className="flex flex-col gap-5">
         <p className="text-red-500">{searchParams?.error}</p>

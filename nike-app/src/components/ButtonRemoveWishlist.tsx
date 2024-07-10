@@ -19,7 +19,7 @@ export default function ButtonRemoveWishlist({
     Swal.fire({
       title: "Removed!",
       text: "Product removed from Wishlist!",
-      icon: "error",
+      icon: "success",
     });
     // router.refresh();
   };

@@ -11,17 +11,19 @@ export const logout = () => {
 };
 
 export const addWishlist = async (productId: string) => {
-  console.log("action add wishlist");
   try {
-    console.log("action add wishlist 2");
-    await fetch(process.env.NEXT_PUBLIC_BASE_URL + "api/wishlist", {
-      body: JSON.stringify({ productId }),
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Cookie: cookies().toString(),
-      },
-    });
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_BASE_URL + "api/wishlist",
+      {
+        body: JSON.stringify({ productId }),
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookies().toString(),
+        },
+      }
+    );
+    return await response.json();
   } catch (error) {
     console.log(error);
   }

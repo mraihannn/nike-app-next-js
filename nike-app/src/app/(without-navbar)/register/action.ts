@@ -1,6 +1,4 @@
 "use server";
-
-import { User } from "@/db/models/user";
 import { schemaUser } from "@/db/validation/user";
 import { MongoServerError } from "mongodb";
 import { redirect } from "next/navigation";

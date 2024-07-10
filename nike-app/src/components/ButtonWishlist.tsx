@@ -6,12 +6,20 @@ import Swal from "sweetalert2";
 
 export default function ButtonWishlist({ productId }: { productId: string }) {
   const handleAddWishlist = async () => {
-    await addWishlist(productId);
-    Swal.fire({
-      title: "Success!",
-      text: "Product added to Wishlist!",
-      icon: "success",
-    });
+    const { id } = await addWishlist(productId);
+    if (id) {
+      Swal.fire({
+        title: "Success!",
+        text: "Product added to Wishlist!",
+        icon: "success",
+      });
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text: "Please login first!",
+        icon: "error",
+      });
+    }
   };
 
   return (
